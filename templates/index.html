@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main>
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <p class="{{ categoria }}">{{ mensagem }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if session.usuario_id %}
+            <h1>Bem-vindo, {{ session.usuario_nome }}</h1>
+            <p>{{ session.usuario_email }}</p>
+            <a href="{{ url_for('usuarios.logout') }}">Sair</a>
+        {% else %}
+            <h1>Marketplace</h1>
+            <a href="{{ url_for('usuarios.login') }}">Entrar</a>
+            <a href="{{ url_for('usuarios.cadastro') }}">Cadastrar</a>
+        {% endif %}
+    </main>
+</body>
+</html>
